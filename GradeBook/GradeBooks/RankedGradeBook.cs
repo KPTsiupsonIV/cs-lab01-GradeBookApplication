@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using GradeBook.Enums;
 using GradeBook.GradeBooks;
 using Newtonsoft.Json;
@@ -11,7 +12,7 @@ namespace GradeBook.GradeBooks
 {
     public class RankedGradeBook : BaseGradeBook
     {
-        public RankedGradeBook(string name) : base(name) { Type = GradeBookType.Ranked; }
+        public RankedGradeBook(string name, bool isWeighted) : base(name, isWeighted) { Type = GradeBookType.Ranked; isWeighted = isWeighted; }
         public override char GetLetterGrade(double averageGrade)
         {
             if (Students.Count < 5)
@@ -50,16 +51,17 @@ namespace GradeBook.GradeBooks
             {
                 Console.WriteLine("Ranked grading requires at least 5 students.");
             }
-            base.CalculateStatistics();
+            else { base.CalculateStatistics(); }
         }
         public override void CalculateStudentStatistics(string name)
         {
             if(Students.Count < 5)
             {
                 Console.WriteLine("Ranked grading requires at least 5 students.");
-                
+
             }
-            base.CalculateStudentStatistics(name);
+            else { base.CalculateStudentStatistics(name); }
+            
         }
     }
 }
